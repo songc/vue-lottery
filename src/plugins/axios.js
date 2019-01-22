@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 import axios from "axios";
-
+import { LoadingBar, Notice } from 'iview'
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -12,17 +12,25 @@ let config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
+  timeout: 15000
 };
 
 const _axios = axios.create(config);
-
+let request =0
 _axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent
+    LoadingBar.start()
+    request++
     return config;
   },
   function(error) {
     // Do something with request error
+    LoadingBar.error()
+    Notice.error({
+      title: "Error",
+      desc: error.message
+    })
     return Promise.reject(error);
   }
 );
@@ -31,15 +39,25 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
+    request--
+    if (request===0){
+      LoadingBar.finish()
+    }
     return response;
   },
   function(error) {
     // Do something with response error
+    request--
+    LoadingBar.error()
+    Notice.error({
+      title: "Error",
+      desc: error.message
+    })
     return Promise.reject(error);
   }
 );
 
-Plugin.install = function(Vue, options) {
+Plugin.install = function(Vue) {
   Vue.axios = _axios;
   window.axios = _axios;
   Object.defineProperties(Vue.prototype, {

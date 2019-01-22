@@ -1,18 +1,50 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="hello">
+    <Button type="primary" @click="go('test')">测试功能</Button>
+    <Button type="primary" @click="register=true">签到</Button>
+    <Button type="primary" @click="go('sweepstake')">抽奖</Button>
+    <Modal v-model="register" title="签到" :footer-hide="true">
+      <RegisterForm @on-success='register=false'></RegisterForm>
+    </Modal>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import RegisterForm from '../components/RegisterForm'
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    HelloWorld
+    RegisterForm
+  },
+  data() {
+    return {
+      register: false
+    }
+  },
+  methods: {
+    go(path){
+      this.$router.push({
+        name: path
+      })
+    }
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
