@@ -28,7 +28,7 @@ _axios.interceptors.request.use(
     // Do something with request error
     LoadingBar.error()
     Notice.error({
-      title: "Error",
+      title: '错误',
       desc: error.message
     })
     return Promise.reject(error);
@@ -50,7 +50,7 @@ _axios.interceptors.response.use(
     request--
     LoadingBar.error()
     Notice.error({
-      title: "Error",
+      title: '错误',
       desc: error.message
     })
     return Promise.reject(error);
