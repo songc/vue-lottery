@@ -3,6 +3,7 @@
     <Button type="primary" @click="go('test')">测试功能</Button>
     <Button type="primary" @click="register=true">签到</Button>
     <Button type="primary" @click="go('sweepstake')">抽奖</Button>
+    <Button type="primary" @click="go('sweepstakev2')">抽奖2</Button>
     <Modal v-model="register" title="签到" :footer-hide="true">
       <RegisterForm @on-success='register=false'></RegisterForm>
     </Modal>
