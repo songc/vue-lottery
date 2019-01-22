@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <InputNumber :max="userListLength" :min="1" v-model="num"></InputNumber>
+    抽奖人数：<InputNumber :max="userListLength" :min="1" v-model="num"></InputNumber>
     <Button v-if="timer" type="warning" @click="destoryTimer">停止</Button>
     <Button v-else type="primary" @click="begin">开始</Button>
     <EmployeeList :employeeList="selectUserList"></EmployeeList>
@@ -68,3 +68,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+button{
+  margin: 10px;
+}
+</style>

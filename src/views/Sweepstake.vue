@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Input type="number" v-model="num" />
-    <Button type="primary" @click="sweepstake">开始抽奖</Button>
+    <InputNumber v-model="num" :min="1"></InputNumber>
+    <Button v-if="timer" type="warning" @click="stop">停止</Button>
+    <Button v-else type="primary" @click="sweepstake">开始抽奖</Button>
     <EmployeeList :employeeList = "employeeList"></EmployeeList>
   </div>
 </template>
@@ -15,20 +16,38 @@ export default {
   },
   data() {
     return {
-      num: 0,
-      employeeList:[]
+      num: 1,
+      employeeList:[],
+      timer: null
     }
   },
   methods:{
     sweepstake(){
-      this.$axios.get('/sweepstake',{
+      let _this = this
+      function getUser(){
+        _this.$axios.get('/sweepstake',{
         params: {
-          num: this.num
+          num: _this.num
         }
-      }).then(res => {
-        this.employeeList=res.data
-      })
+        }).then(res => {
+          _this.employeeList=res.data
+        })
+      }
+      this.timer = setInterval(getUser, 500)
+    },
+    stop(){
+      if(this.timer){
+        this.timer = clearInterval(this.timer)
+      }
     }
   }
 }
 </script>
+
+
+<style scoped>
+button {
+  margin: 10px;
+}
+</style>
+

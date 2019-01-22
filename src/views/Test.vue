@@ -1,6 +1,7 @@
 <template>
   <div>
-    <Input v-model="num" type="text"/>
+    生成用户数量：<InputNumber v-model="num" :min="1"></InputNumber>
+    <br>
     <Button type="primary" @click="genUser">生成用户</Button>
     <Button type="primary" @click="deleteUser">删除所有用户</Button>
     <EmployeeList :employeeList=employeeList></EmployeeList>
@@ -39,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+button {
+  margin: 10px;
+}
+</style>

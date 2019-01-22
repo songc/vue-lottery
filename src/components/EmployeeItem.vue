@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="item">
     {{ employee.employeeId }}---{{ employee.name|hidePartName }}---{{ employee.phone|hidePartPhone }}
   </div>
 </template>
@@ -20,3 +20,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.item {
+  margin: 10px;
+  font-size: 18px;
+}
+</style>
